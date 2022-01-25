@@ -16,24 +16,19 @@ public class FlyWayConfiguration {
 
     @PostConstruct
     public void migrateFlyway() {
-        final Flyway flywayFirst = configureFlyway(firstDataSourceConfiguration.firstDataSource(), "db/migrations/first");
-        flywayFirst.migrate();
-
-        final Flyway flywaySecond = configureFlyway(secondDataSourceConfiguration.secondDataSource(), "db/migrations/second");
-        flywaySecond.migrate();
+        migrate(firstDataSourceConfiguration.firstDataSource(), "db/migrations/first");
+        migrate(secondDataSourceConfiguration.secondDataSource(), "db/migrations/second");
     }
 
-    private Flyway configureFlyway(final DataSource dataSource, final String locations) {
-        return Flyway.configure()
+    private void migrate(final DataSource dataSource, final String locations) {
+        Flyway.configure()
                 .dataSource(dataSource)
                 .locations(locations)
-                .ignoreMissingMigrations(false)
                 .validateOnMigrate(true)
                 .validateMigrationNaming(true)
                 .schemas("public")
                 .defaultSchema("public")
-                .baselineOnMigrate(true)
-                .baselineDescription("Flyway Scripts")
-                .load();
+                .load()
+                .migrate();
     }
 }

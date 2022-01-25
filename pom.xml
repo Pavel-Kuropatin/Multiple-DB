@@ -77,7 +77,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.kuropatin.zenbooking.ZenBookingStarter</mainClass>
+                    <mainClass>com.kuropatin.mdb.SpringBootStarter</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
