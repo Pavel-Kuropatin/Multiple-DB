@@ -1,11 +1,10 @@
-package com.kuropatin.mdb.config;
+package com.kuropatin.mdb.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -19,41 +18,38 @@ import java.util.HashMap;
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = "com.kuropatin.mdb.repository.first", entityManagerFactoryRef = "firstEntityManager", transactionManagerRef = "firstTransactionManager")
+@EnableJpaRepositories(basePackages = "com.kuropatin.mdb.repository.second", entityManagerFactoryRef = "secondEntityManager", transactionManagerRef = "secondTransactionManager")
 @RequiredArgsConstructor
-public class FirstDataSourceConfiguration {
+public class SecondDataSourceConfiguration {
 
     private final Environment env;
 
-    @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean firstEntityManager() {
+    public LocalContainerEntityManagerFactoryBean secondEntityManager() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(firstDataSource());
-        em.setPackagesToScan(new String[]{"com.kuropatin.mdb.model.first"});
+        em.setDataSource(secondDataSource());
+        em.setPackagesToScan(new String[]{"com.kuropatin.mdb.model.second"});
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         final HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", env.getProperty("spring.datasource.dialect"));
+        properties.put("hibernate.dialect", env.getProperty("spring.second-datasource.dialect"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
         em.setJpaPropertyMap(properties);
 
         return em;
     }
 
-    @Primary
     @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DataSource firstDataSource() {
+    @ConfigurationProperties(prefix="spring.second-datasource")
+    public DataSource secondDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
     @Bean
-    public PlatformTransactionManager firstTransactionManager() {
+    public PlatformTransactionManager secondTransactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(firstEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(secondEntityManager().getObject());
         return transactionManager;
     }
 }
