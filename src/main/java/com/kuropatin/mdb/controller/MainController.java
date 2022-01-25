@@ -1,7 +1,9 @@
 package com.kuropatin.mdb.controller;
 
+import com.kuropatin.mdb.model.first.Greeting;
 import com.kuropatin.mdb.model.first.User;
 import com.kuropatin.mdb.model.second.Product;
+import com.kuropatin.mdb.repository.first.GreetingRepository;
 import com.kuropatin.mdb.repository.first.UserRepository;
 import com.kuropatin.mdb.repository.second.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MainController {
 
+    private final GreetingRepository greetingRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
     @GetMapping
-    public ResponseEntity<String> hello() {
-        return new ResponseEntity<>("Hello!", HttpStatus.OK);
+    public ResponseEntity<Greeting> hello() {
+        return new ResponseEntity<>(greetingRepository.randomGreeting().orElse(new Greeting(-1L, "Hello!")), HttpStatus.OK);
     }
 
     @GetMapping("/users")

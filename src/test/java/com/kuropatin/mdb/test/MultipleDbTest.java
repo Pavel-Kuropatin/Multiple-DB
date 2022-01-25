@@ -23,7 +23,7 @@ class MultipleDbTest {
     private ProductRepository productRepository;
 
     @Test
-    @Transactional("userTransactionManager")
+    @Transactional("firstTransactionManager")
     void testCreateUser() {
         final String name = "Иван";
         final String birthDate = "12.12.2012";
@@ -43,7 +43,7 @@ class MultipleDbTest {
     }
 
     @Test
-    @Transactional("userTransactionManager")
+    @Transactional("secondTransactionManager")
     void testCreateProduct() {
         final String name = "Ластик";
         final int price = 90;
