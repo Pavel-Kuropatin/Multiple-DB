@@ -1,11 +1,11 @@
 package com.kuropatin.mdb.controller;
 
-import com.kuropatin.mdb.model.first.Greeting;
+import com.kuropatin.mdb.model.second.Greeting;
 import com.kuropatin.mdb.model.first.User;
-import com.kuropatin.mdb.model.second.Product;
-import com.kuropatin.mdb.repository.first.GreetingRepository;
+import com.kuropatin.mdb.model.first.Product;
+import com.kuropatin.mdb.repository.second.GreetingRepository;
 import com.kuropatin.mdb.repository.first.UserRepository;
-import com.kuropatin.mdb.repository.second.ProductRepository;
+import com.kuropatin.mdb.repository.first.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

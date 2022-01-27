@@ -1,9 +1,11 @@
 package com.kuropatin.mdb.test;
 
 import com.kuropatin.mdb.model.first.User;
-import com.kuropatin.mdb.model.second.Product;
+import com.kuropatin.mdb.model.first.Product;
+import com.kuropatin.mdb.model.second.Greeting;
 import com.kuropatin.mdb.repository.first.UserRepository;
-import com.kuropatin.mdb.repository.second.ProductRepository;
+import com.kuropatin.mdb.repository.first.ProductRepository;
+import com.kuropatin.mdb.repository.second.GreetingRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +23,8 @@ class MultipleDbTest {
     private UserRepository userRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private GreetingRepository greetingRepository;
 
     @Test
     @Transactional("firstTransactionManager")
@@ -43,7 +47,7 @@ class MultipleDbTest {
     }
 
     @Test
-    @Transactional("secondTransactionManager")
+    @Transactional("firstTransactionManager")
     void testCreateProduct() {
         final String name = "Ластик";
         final int price = 90;
@@ -60,5 +64,22 @@ class MultipleDbTest {
 
         productRepository.deleteById(product.getId());
         assertNull(productRepository.findById(product.getId()).orElse(null));
+    }
+
+    @Test
+    @Transactional("secondTransactionManager")
+    void testCreateGreeting() {
+        final String message = "Ластик";
+
+        Greeting greeting = new Greeting();
+        greeting.setMessage(message);
+
+        greeting = greetingRepository.save(greeting);
+
+        final Greeting savedGreeting = greetingRepository.findById(greeting.getId()).orElse(new Greeting());
+        assertEquals(message, savedGreeting.getMessage());
+
+        greetingRepository.deleteById(greeting.getId());
+        assertNull(greetingRepository.findById(greeting.getId()).orElse(null));
     }
 }

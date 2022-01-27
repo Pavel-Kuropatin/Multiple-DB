@@ -1,6 +1,6 @@
-package com.kuropatin.mdb.repository.first;
+package com.kuropatin.mdb.repository.second;
 
-import com.kuropatin.mdb.model.first.Greeting;
+import com.kuropatin.mdb.model.second.Greeting;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

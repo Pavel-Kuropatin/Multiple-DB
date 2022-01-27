@@ -19,7 +19,10 @@ import java.util.HashMap;
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = "com.kuropatin.mdb.repository.first", entityManagerFactoryRef = "firstEntityManager", transactionManagerRef = "firstTransactionManager")
+@EnableJpaRepositories(
+        basePackages = "com.kuropatin.mdb.repository.first",
+        entityManagerFactoryRef = "firstEntityManager",
+        transactionManagerRef = "firstTransactionManager")
 @RequiredArgsConstructor
 public class FirstDataSourceConfiguration {
 
@@ -30,7 +33,7 @@ public class FirstDataSourceConfiguration {
     public LocalContainerEntityManagerFactoryBean firstEntityManager() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(firstDataSource());
-        em.setPackagesToScan(new String[]{"com.kuropatin.mdb.model.first"});
+        em.setPackagesToScan("com.kuropatin.mdb.model.first");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

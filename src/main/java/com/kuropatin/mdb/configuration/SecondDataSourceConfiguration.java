@@ -18,7 +18,10 @@ import java.util.HashMap;
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = "com.kuropatin.mdb.repository.second", entityManagerFactoryRef = "secondEntityManager", transactionManagerRef = "secondTransactionManager")
+@EnableJpaRepositories(
+        basePackages = "com.kuropatin.mdb.repository.second",
+        entityManagerFactoryRef = "secondEntityManager",
+        transactionManagerRef = "secondTransactionManager")
 @RequiredArgsConstructor
 public class SecondDataSourceConfiguration {
 
@@ -28,7 +31,7 @@ public class SecondDataSourceConfiguration {
     public LocalContainerEntityManagerFactoryBean secondEntityManager() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(secondDataSource());
-        em.setPackagesToScan(new String[]{"com.kuropatin.mdb.model.second"});
+        em.setPackagesToScan("com.kuropatin.mdb.model.second");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

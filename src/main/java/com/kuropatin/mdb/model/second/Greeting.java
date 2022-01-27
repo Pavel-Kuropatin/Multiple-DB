@@ -15,25 +15,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "Product")
-@Table(name = "products")
+@Entity(name = "Greeting")
+@Table(name = "greetings")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Product {
+public class Greeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "price")
-    private Integer price;
+    @Column(name = "message")
+    private String message;
 
     @Override
     public String toString() {

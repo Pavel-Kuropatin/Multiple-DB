@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS products(
-    id    bigserial primary key,
-    name  varchar(255),
-    price integer
+CREATE TABLE IF NOT EXISTS greetings(
+    id      bigserial primary key,
+    message varchar(255)
 );
 
-INSERT INTO products(name, price) VALUES ('Ручка',    100);
-INSERT INTO products(name, price) VALUES ('Карандаш', 80);
-INSERT INTO products(name, price) VALUES ('Тетрадь',  200);
+INSERT INTO greetings(message) VALUES ('Hello world!');
+INSERT INTO greetings(message) VALUES ('Hi there!');
+INSERT INTO greetings(message) VALUES ('Welcome!');
+INSERT INTO greetings(message) VALUES ('Nice to meet you!');
+INSERT INTO greetings(message) VALUES ('Oh, hello!');
